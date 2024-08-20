@@ -1,0 +1,29 @@
+{
+    "development": {
+      "username": "postgres",
+      "password": "password",
+      "database": "your_database_name",
+      "host": "127.0.0.1",
+      "port": 5432,
+      "dialect": "postgres",
+      "logging": false
+    },
+    "test": {
+      "username": "postgres",
+      "password": "password",
+      "database": "your_test_database_name",
+      "host": "127.0.0.1",
+      "port": 5432,
+      "dialect": "postgres",
+      "logging": false
+    },
+    "production": {
+      "username": "postgres",
+      "password": "password",
+      "database": "your_production_database_name",
+      "host": "your_production_db_host",
+      "port": 5432,
+      "dialect": "postgres",
+      "logging": false
+    }
+  }

@@ -1,18 +1,24 @@
 const router = require('express').Router();
-const { Post, User, Comment } = require('../models');
+const postController = require('../controllers/postController');
+const commentController = require('../controllers/commentController');
+const userController = require('../controllers/userController');
+const { authMiddleware } = require('../config/auth');
 
-// Example: Get all posts
-router.get('/posts', async (req, res) => {
-  try {
-    const posts = await Post.findAll({
-      include: [User],
-    });
-    res.json(posts);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+// Post routes
+router.get('/posts', postController.getAllPosts);
+router.get('/posts/:id', postController.getPostById);
+router.post('/posts', authMiddleware, postController.createPost);
+router.put('/posts/:id', authMiddleware, postController.updatePost);
+router.delete('/posts/:id', authMiddleware, postController.deletePost);
 
-// Additional API routes here...
+// Comment routes
+router.get('/posts/:postId/comments', commentController.getAllComments);
+router.post('/posts/:postId/comments', authMiddleware, commentController.createComment);
+router.delete('/comments/:id', authMiddleware, commentController.deleteComment);
+
+// User routes
+router.post('/signup', userController.signup);
+router.post('/login', userController.login);
+router.post('/logout', authMiddleware, userController.logout);
 
 module.exports = router;
