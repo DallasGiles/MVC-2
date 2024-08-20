@@ -21,15 +21,17 @@ Post.init(
     userId: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'User',
+        model: 'Users',
         key: 'id',
       },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     },
   },
   {
     sequelize,
-    timestamps: true,
     modelName: 'Post',
+    timestamps: true,
   }
 );
 

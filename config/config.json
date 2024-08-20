@@ -2,7 +2,7 @@
     "development": {
       "username": "postgres",
       "password": "password",
-      "database": "your_database_name",
+      "database": "mvc-2",
       "host": "127.0.0.1",
       "port": 5432,
       "dialect": "postgres",
@@ -11,7 +11,7 @@
     "test": {
       "username": "postgres",
       "password": "password",
-      "database": "your_test_database_name",
+      "database": "test-mvc-2",
       "host": "127.0.0.1",
       "port": 5432,
       "dialect": "postgres",
@@ -20,7 +20,7 @@
     "production": {
       "username": "postgres",
       "password": "password",
-      "database": "your_production_database_name",
+      "database": "production-mvc-2",
       "host": "your_production_db_host",
       "port": 5432,
       "dialect": "postgres",

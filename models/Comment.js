@@ -17,22 +17,26 @@ Comment.init(
     userId: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'User',
+        model: 'Users',
         key: 'id',
       },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     },
     postId: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Post',
+        model: 'Posts',
         key: 'id',
       },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     },
   },
   {
     sequelize,
-    timestamps: true,
     modelName: 'Comment',
+    timestamps: true,
   }
 );
 

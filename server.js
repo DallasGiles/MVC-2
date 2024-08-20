@@ -1,32 +1,31 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
-const routes = require('./routes');
+const session = require('express-session');
 const { sessionConfig } = require('./config/auth');
 const sequelize = require('./config/database');
-require('dotenv').config();
+const apiRoutes = require('./routes/apiRoutes');
+const htmlRoutes = require('./routes/htmlRoutes');
+const { User, Post, Comment } = require('./models');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
-// Set up Handlebars.js as the template engine
 app.engine('handlebars', exphbs.create({ defaultLayout: 'main' }).engine);
 app.set('view engine', 'handlebars');
 
-// Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Session management
 app.use(session(sessionConfig));
-
-// Use routes
-app.use(routes);
-
-// Sync database and start server
-sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
-});
+app.use('/api', apiRoutes);
+app.use('/', htmlRoutes);
+// Sync models in a specific order and then start the server
+sequelize.sync({ force: true })  // This is the key line for number three
+  .then(() => {
+    app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
+  })
+  .catch(err => {
+    console.error('Unable to sync database:', err);
+  });
